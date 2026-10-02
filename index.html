@@ -194,10 +194,21 @@ button{
   font-size:42px;
   font-weight:900;
   color:#fff;
+  min-width:125px;
 }
 
 .timer-number.warning{
-  color:#ff6b6b;
+  color:#ff5252;
+  animation:pulseTimer .6s infinite alternate;
+}
+
+@keyframes pulseTimer{
+  from{
+    transform:scale(1);
+  }
+  to{
+    transform:scale(1.12);
+  }
 }
 
 .timer-buttons{
@@ -451,8 +462,14 @@ details[open] summary::after{
 }
 
 @keyframes pop{
-  from{transform:scale(.9);opacity:0}
-  to{transform:scale(1);opacity:1}
+  from{
+    transform:scale(.9);
+    opacity:0
+  }
+  to{
+    transform:scale(1);
+    opacity:1
+  }
 }
 
 .modal h2{
@@ -560,9 +577,18 @@ details[open] summary::after{
 }
 
 @keyframes moneyFloat{
-  0%{opacity:0;transform:translateY(0) scale(.7)}
-  20%{opacity:1;transform:translateY(-15px) scale(1.1)}
-  100%{opacity:0;transform:translateY(-100px) scale(1)}
+  0%{
+    opacity:0;
+    transform:translateY(0) scale(.7)
+  }
+  20%{
+    opacity:1;
+    transform:translateY(-15px) scale(1.1)
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-100px) scale(1)
+  }
 }
 
 .empty{
@@ -572,6 +598,7 @@ details[open] summary::after{
 }
 
 @media(max-width:1050px){
+
   .layout{
     grid-template-columns:1fr;
   }
@@ -580,9 +607,11 @@ details[open] summary::after{
     display:grid;
     grid-template-columns:1fr 1fr;
   }
+
 }
 
 @media(max-width:700px){
+
   .teams{
     grid-template-columns:1fr 1fr;
   }
@@ -603,9 +632,11 @@ details[open] summary::after{
     flex-direction:column;
     align-items:flex-start;
   }
+
 }
 
 @media(max-width:450px){
+
   .teams{
     grid-template-columns:1fr;
   }
@@ -617,6 +648,7 @@ details[open] summary::after{
   .navigation{
     grid-template-columns:1fr;
   }
+
 }
 </style>
 </head>
@@ -630,362 +662,911 @@ details[open] summary::after{
 
 <div class="container">
 
-  <section class="teams" id="teams"></section>
+<section class="teams" id="teams"></section>
 
-  <div class="layout">
+<div class="layout">
 
-    <main class="card mission-card">
+<main class="card mission-card">
 
-      <div class="mission-top">
-        <div>
-          <span class="badge" id="missionType">MISSION</span>
-          <span class="badge final-badge" id="finalBadge" style="display:none">FINAL BATTLE</span>
-        </div>
-        <div class="mission-number" id="missionNumber"></div>
-      </div>
+<div class="mission-top">
 
-      <h2 class="mission-title" id="missionTitle"></h2>
+<div>
+<span class="badge" id="missionType">MISSION</span>
 
-      <p class="mission-instructions" id="missionInstructions"></p>
+<span
+class="badge final-badge"
+id="finalBadge"
+style="display:none">
+FINAL BATTLE
+</span>
 
-      <div class="reward-box">
-        <div class="reward" id="missionReward"></div>
-        <div class="double" id="doubleBadge" style="display:none">DOUBLE REWARD</div>
-      </div>
+</div>
 
-      <div class="timer">
-        <div class="timer-number" id="timer">00:00</div>
+<div
+class="mission-number"
+id="missionNumber">
+</div>
 
-        <div class="timer-buttons">
-          <button class="btn btn-primary" onclick="startTimer()">START</button>
-          <button class="btn btn-secondary" onclick="pauseTimer()">PAUSE</button>
-          <button class="btn btn-secondary" onclick="resetTimer()">RESET</button>
-        </div>
-      </div>
+</div>
 
-      <div class="navigation">
-        <button class="btn btn-secondary" onclick="previousMission()">← PREVIOUS</button>
-        <button class="btn btn-primary" onclick="nextMission()">NEXT →</button>
-      </div>
+<h2
+class="mission-title"
+id="missionTitle">
+</h2>
 
-    </main>
+<p
+class="mission-instructions"
+id="missionInstructions">
+</p>
 
-    <aside class="sidebar">
+<div class="reward-box">
 
-      <div class="card side-card">
+<div
+class="reward"
+id="missionReward">
+</div>
 
-        <div class="side-title">Award Mission</div>
+<div
+class="double"
+id="doubleBadge"
+style="display:none">
+DOUBLE REWARD
+</div>
 
-        <div id="awardStatus"></div>
+</div>
 
-        <div class="award-grid">
-          <button class="award-btn" onclick="selectWinner(0)">TEAM 1</button>
-          <button class="award-btn" onclick="selectWinner(1)">TEAM 2</button>
-          <button class="award-btn" onclick="selectWinner(2)">TEAM 3</button>
-          <button class="award-btn" onclick="selectWinner(3)">TEAM 4</button>
-        </div>
+<div class="timer">
 
-        <button class="btn btn-gold full" onclick="showStandings()">VIEW LEADERBOARD</button>
-        <button class="btn btn-danger full" onclick="showFinal()">FINAL RESULTS</button>
+<div
+class="timer-number"
+id="timer">
+00:00
+</div>
 
-      </div>
+<div class="timer-buttons">
 
-      <div class="card side-card">
+<button
+class="btn btn-primary"
+onclick="startTimer()">
+START
+</button>
 
-        <details>
-          <summary>TEAM SETTINGS</summary>
+<button
+class="btn btn-secondary"
+onclick="pauseTimer()">
+PAUSE
+</button>
 
-          <div class="form">
-            <label>TEAM 1 NAME</label>
-            <input id="teamInput0">
+<button
+class="btn btn-secondary"
+onclick="resetTimer()">
+RESET
+</button>
 
-            <label>TEAM 2 NAME</label>
-            <input id="teamInput1">
+</div>
 
-            <label>TEAM 3 NAME</label>
-            <input id="teamInput2">
+</div>
 
-            <label>TEAM 4 NAME</label>
-            <input id="teamInput3">
+<div class="navigation">
 
-            <button class="btn btn-primary full" onclick="saveTeamNames()">
-              SAVE TEAM NAMES
-            </button>
-          </div>
-        </details>
+<button
+class="btn btn-secondary"
+onclick="previousMission()">
+← PREVIOUS
+</button>
 
-      </div>
+<button
+class="btn btn-primary"
+onclick="nextMission()">
+NEXT →
+</button>
 
-      <div class="card side-card">
+</div>
 
-        <details>
-          <summary>MISSION MANAGER</summary>
+</main>
 
-          <div class="form">
 
-            <label>MISSION TITLE</label>
-            <input id="missionInputTitle" placeholder="Example: Speak Fast">
+<aside class="sidebar">
 
-            <label>INSTRUCTIONS</label>
-            <textarea id="missionInputInstructions" placeholder="Write the mission instructions..."></textarea>
 
-            <div class="row">
-              <div>
-                <label>REWARD ($)</label>
-                <input id="missionInputReward" type="number" min="1" value="100">
-              </div>
+<div class="card side-card">
 
-              <div>
-                <label>TIME (SECONDS)</label>
-                <input id="missionInputTime" type="number" min="10" value="60">
-              </div>
-            </div>
+<div class="side-title">
+Award Mission
+</div>
 
-            <label class="checkbox">
-              <input type="checkbox" id="missionInputDouble">
-              DOUBLE REWARD
-            </label>
+<div id="awardStatus"></div>
 
-            <label class="checkbox">
-              <input type="checkbox" id="missionInputFinal">
-              FINAL BATTLE
-            </label>
+<div class="award-grid">
 
-            <button class="btn btn-primary full" id="missionSaveBtn" onclick="saveMission()">
-              ADD MISSION
-            </button>
+<button
+class="award-btn"
+onclick="selectWinner(0)">
+TEAM 1
+</button>
 
-            <button class="btn btn-secondary full" onclick="cancelEdit()" id="cancelEditBtn" style="display:none">
-              CANCEL EDIT
-            </button>
+<button
+class="award-btn"
+onclick="selectWinner(1)">
+TEAM 2
+</button>
 
-            <div class="mission-list" id="missionList"></div>
+<button
+class="award-btn"
+onclick="selectWinner(2)">
+TEAM 3
+</button>
 
-          </div>
+<button
+class="award-btn"
+onclick="selectWinner(3)">
+TEAM 4
+</button>
 
-        </details>
+</div>
 
-      </div>
+<button
+class="btn btn-gold full"
+onclick="showStandings()">
+VIEW LEADERBOARD
+</button>
 
-      <div class="card side-card">
-        <div class="side-title">Battle Controls</div>
+<button
+class="btn btn-danger full"
+onclick="showFinal()">
+FINAL RESULTS
+</button>
 
-        <button class="btn btn-secondary full" onclick="newBattle()">
-          NEW BATTLE
-        </button>
+</div>
 
-      </div>
 
-    </aside>
+<div class="card side-card">
 
-  </div>
+<details>
+
+<summary>
+TEAM SETTINGS
+</summary>
+
+<div class="form">
+
+<label>TEAM 1 NAME</label>
+<input id="teamInput0">
+
+<label>TEAM 2 NAME</label>
+<input id="teamInput1">
+
+<label>TEAM 3 NAME</label>
+<input id="teamInput2">
+
+<label>TEAM 4 NAME</label>
+<input id="teamInput3">
+
+<button
+class="btn btn-primary full"
+onclick="saveTeamNames()">
+SAVE TEAM NAMES
+</button>
+
+</div>
+
+</details>
+
+</div>
+
+
+<div class="card side-card">
+
+<details>
+
+<summary>
+MISSION MANAGER
+</summary>
+
+<div class="form">
+
+<label>MISSION TITLE</label>
+
+<input
+id="missionInputTitle"
+placeholder="Example: Speak Fast">
+
+
+<label>INSTRUCTIONS</label>
+
+<textarea
+id="missionInputInstructions"
+placeholder="Write the mission instructions...">
+</textarea>
+
+
+<div class="row">
+
+<div>
+
+<label>REWARD ($)</label>
+
+<input
+id="missionInputReward"
+type="number"
+min="1"
+value="100">
+
+</div>
+
+<div>
+
+<label>TIME (SECONDS)</label>
+
+<input
+id="missionInputTime"
+type="number"
+min="10"
+value="60">
+
+</div>
+
+</div>
+
+
+<label class="checkbox">
+
+<input
+type="checkbox"
+id="missionInputDouble">
+
+DOUBLE REWARD
+
+</label>
+
+
+<label class="checkbox">
+
+<input
+type="checkbox"
+id="missionInputFinal">
+
+FINAL BATTLE
+
+</label>
+
+
+<button
+class="btn btn-primary full"
+id="missionSaveBtn"
+onclick="saveMission()">
+ADD MISSION
+</button>
+
+
+<button
+class="btn btn-secondary full"
+onclick="cancelEdit()"
+id="cancelEditBtn"
+style="display:none">
+CANCEL EDIT
+</button>
+
+
+<div
+class="mission-list"
+id="missionList">
+</div>
+
+</div>
+
+</details>
+
+</div>
+
+
+<div class="card side-card">
+
+<div class="side-title">
+Battle Controls
+</div>
+
+<button
+class="btn btn-secondary full"
+onclick="newBattle()">
+NEW BATTLE
+</button>
+
+</div>
+
+</aside>
+
+</div>
 </div>
 
 
 <!-- AWARD CONFIRMATION -->
 
-<div class="overlay" id="awardOverlay">
+<div
+class="overlay"
+id="awardOverlay">
 
-  <div class="modal">
+<div class="modal">
 
-    <h2 id="awardTitle">Award Mission</h2>
+<h2 id="awardTitle">
+Award Mission
+</h2>
 
-    <p id="awardText"></p>
+<p id="awardText"></p>
 
-    <div class="confirm-buttons">
+<div class="confirm-buttons">
 
-      <button class="btn btn-gold" onclick="confirmAward()">
-        CONFIRM
-      </button>
+<button
+class="btn btn-gold"
+onclick="confirmAward()">
+CONFIRM
+</button>
 
-      <button class="btn btn-secondary" onclick="closeOverlay('awardOverlay')">
-        CANCEL
-      </button>
+<button
+class="btn btn-secondary"
+onclick="closeOverlay('awardOverlay')">
+CANCEL
+</button>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 
 
 <!-- LEADERBOARD -->
 
-<div class="overlay" id="standingsOverlay">
+<div
+class="overlay"
+id="standingsOverlay">
 
-  <div class="modal">
+<div class="modal">
 
-    <h2>LEADERBOARD</h2>
+<h2>
+LEADERBOARD
+</h2>
 
-    <p>Current standings</p>
+<p>
+Current standings
+</p>
 
-    <div class="standings-list" id="standingsList"></div>
+<div
+class="standings-list"
+id="standingsList">
+</div>
 
-    <div class="countdown">
-      Next mission in <span id="standingsCountdown">5</span> seconds
-    </div>
+<div class="countdown">
 
-  </div>
+Next mission in
+<span id="standingsCountdown">
+5
+</span>
+seconds
+
+</div>
+
+</div>
 
 </div>
 
 
 <!-- FINAL RESULTS -->
 
-<div class="overlay" id="finalOverlay">
+<div
+class="overlay"
+id="finalOverlay">
 
-  <div class="modal">
+<div class="modal">
 
-    <h2>FINAL RESULTS</h2>
+<h2>
+FINAL RESULTS
+</h2>
 
-    <div class="final-winner" id="finalWinner"></div>
+<div
+class="final-winner"
+id="finalWinner">
+</div>
 
-    <div class="final-sub">Congratulations to the winning team!</div>
+<div class="final-sub">
+Congratulations to the winning team!
+</div>
 
-    <div class="standings-list" id="finalList"></div>
+<div
+class="standings-list"
+id="finalList">
+</div>
 
-    <button class="btn btn-gold full" onclick="closeOverlay('finalOverlay')">
-      CLOSE
-    </button>
+<button
+class="btn btn-gold full"
+onclick="closeOverlay('finalOverlay')">
+CLOSE
+</button>
 
-  </div>
+</div>
 
 </div>
 
 
 <script>
 
-const STORAGE_KEY = "monthers_class_battle_v2";
+const STORAGE_KEY =
+"monthers_class_battle_v3";
+
 
 const defaultState = {
 
-  teams:[
-    {name:"TEAM 1",money:0},
-    {name:"TEAM 2",money:0},
-    {name:"TEAM 3",money:0},
-    {name:"TEAM 4",money:0}
-  ],
+teams:[
+{name:"TEAM 1",money:0},
+{name:"TEAM 2",money:0},
+{name:"TEAM 3",money:0},
+{name:"TEAM 4",money:0}
+],
 
-  missions:[
-    {
-      title:"Speak Fast",
-      instructions:"Speak continuously for 2 minutes. Don't stop talking.",
-      reward:100,
-      time:120,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+missions:[
 
-    {
-      title:"Describe the Word",
-      instructions:"Describe the word without saying the word itself.",
-      reward:100,
-      time:60,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+{
+title:"Speak Fast",
+instructions:"Speak continuously for 2 minutes. Don't stop talking.",
+reward:100,
+time:120,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-    {
-      title:"Three-Word Story",
-      instructions:"Create a story using these three words: hospital, football, pizza.",
-      reward:150,
-      time:120,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+{
+title:"Describe the Word",
+instructions:"Describe the word without saying the word itself.",
+reward:100,
+time:60,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-    {
-      title:"No Yes or No",
-      instructions:"Answer questions for 1 minute without saying YES or NO.",
-      reward:100,
-      time:60,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+{
+title:"Three-Word Story",
+instructions:"Create a story using these three words: hospital, football, pizza.",
+reward:150,
+time:120,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-    {
-      title:"Talk About It",
-      instructions:"Talk about your favorite place for 90 seconds.",
-      reward:150,
-      time:90,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+{
+title:"No Yes or No",
+instructions:"Answer questions for 1 minute without saying YES or NO.",
+reward:100,
+time:60,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-    {
-      title:"Change the Story",
-      instructions:"Create a short story. Your team can change one thing every 20 seconds.",
-      reward:200,
-      time:120,
-      double:false,
-      final:false,
-      awarded:false,
-      winner:null
-    },
+{
+title:"Talk About It",
+instructions:"Talk about your favorite place for 90 seconds.",
+reward:150,
+time:90,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-    {
-      title:"FINAL SPEAKING BATTLE",
-      instructions:"Your team has 3 minutes to tell an interesting story. Everyone in the team must speak.",
-      reward:300,
-      time:180,
-      double:false,
-      final:true,
-      awarded:false,
-      winner:null
-    }
-  ],
+{
+title:"Change the Story",
+instructions:"Create a short story. Your team can change one thing every 20 seconds.",
+reward:200,
+time:120,
+double:false,
+final:false,
+awarded:false,
+winner:null
+},
 
-  currentMission:0
+{
+title:"FINAL SPEAKING BATTLE",
+instructions:"Your team has 3 minutes to tell an interesting story. Everyone in the team must speak.",
+reward:300,
+time:180,
+double:false,
+final:true,
+awarded:false,
+winner:null
+}
+
+],
+
+currentMission:0
 
 };
 
 
-let state = loadState();
+let state =
+loadState();
+
 let timerInterval = null;
+
 let timeLeft = 0;
+
 let pendingWinner = null;
+
 let editingMission = null;
+
 let standingsTimer = null;
 
+
+/* =========================
+   AUDIO SYSTEM
+========================= */
+
+let audioContext = null;
+
+let timerSoundInterval = null;
+
+let lastTimerSecond = null;
+
+
+function getAudioContext(){
+
+  if(!audioContext){
+
+    const AudioCtx =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if(!AudioCtx){
+      return null;
+    }
+
+    audioContext = new AudioCtx();
+
+  }
+
+  if(audioContext.state === "suspended"){
+
+    audioContext.resume();
+
+  }
+
+  return audioContext;
+
+}
+
+
+/* Normal timer tick */
+
+function playTimerTick(){
+
+  const ctx = getAudioContext();
+
+  if(!ctx){
+    return;
+  }
+
+  const oscillator =
+    ctx.createOscillator();
+
+  const gain =
+    ctx.createGain();
+
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+
+  oscillator.type="square";
+
+  oscillator.frequency.setValueAtTime(
+    850,
+    ctx.currentTime
+  );
+
+  gain.gain.setValueAtTime(
+    0.035,
+    ctx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    ctx.currentTime+0.07
+  );
+
+  oscillator.start();
+
+  oscillator.stop(
+    ctx.currentTime+0.07
+  );
+
+}
+
+
+/* Last 10 seconds buzzer */
+
+function playBuzzer(){
+
+  const ctx = getAudioContext();
+
+  if(!ctx){
+    return;
+  }
+
+  const oscillator =
+    ctx.createOscillator();
+
+  const gain =
+    ctx.createGain();
+
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+
+  oscillator.type="sawtooth";
+
+  oscillator.frequency.setValueAtTime(
+    420,
+    ctx.currentTime
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    250,
+    ctx.currentTime+0.18
+  );
+
+  gain.gain.setValueAtTime(
+    0.13,
+    ctx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    ctx.currentTime+0.2
+  );
+
+  oscillator.start();
+
+  oscillator.stop(
+    ctx.currentTime+0.2
+  );
+
+}
+
+
+/* Explosion when timer reaches zero */
+
+function playExplosion(){
+
+  const ctx = getAudioContext();
+
+  if(!ctx){
+    return;
+  }
+
+  const duration = 1.2;
+
+  const bufferSize =
+    ctx.sampleRate * duration;
+
+  const buffer =
+    ctx.createBuffer(
+      1,
+      bufferSize,
+      ctx.sampleRate
+    );
+
+  const data =
+    buffer.getChannelData(0);
+
+  for(let i=0;i<bufferSize;i++){
+
+    const decay =
+      1 - i / bufferSize;
+
+    data[i] =
+      (Math.random()*2-1)
+      * decay
+      * decay;
+
+  }
+
+  const noise =
+    ctx.createBufferSource();
+
+  noise.buffer = buffer;
+
+  const filter =
+    ctx.createBiquadFilter();
+
+  filter.type="lowpass";
+
+  filter.frequency.value=650;
+
+  const gain =
+    ctx.createGain();
+
+  gain.gain.setValueAtTime(
+    0.65,
+    ctx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    ctx.currentTime+duration
+  );
+
+  noise
+    .connect(filter)
+    .connect(gain)
+    .connect(ctx.destination);
+
+  noise.start();
+
+  /* Extra deep boom */
+
+  const boom =
+    ctx.createOscillator();
+
+  const boomGain =
+    ctx.createGain();
+
+  boom.type="sine";
+
+  boom.frequency.setValueAtTime(
+    110,
+    ctx.currentTime
+  );
+
+  boom.frequency.exponentialRampToValueAtTime(
+    35,
+    ctx.currentTime+0.8
+  );
+
+  boomGain.gain.setValueAtTime(
+    0.45,
+    ctx.currentTime
+  );
+
+  boomGain.gain.exponentialRampToValueAtTime(
+    0.001,
+    ctx.currentTime+0.8
+  );
+
+  boom
+    .connect(boomGain)
+    .connect(ctx.destination);
+
+  boom.start();
+
+  boom.stop(
+    ctx.currentTime+0.8
+  );
+
+}
+
+
+/* Success sound */
+
+function playSuccess(){
+
+  const ctx = getAudioContext();
+
+  if(!ctx){
+    return;
+  }
+
+  const notes = [523,659,784];
+
+  notes.forEach((frequency,index)=>{
+
+    const oscillator =
+      ctx.createOscillator();
+
+    const gain =
+      ctx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.type="sine";
+
+    oscillator.frequency.value =
+      frequency;
+
+    const start =
+      ctx.currentTime + index*0.12;
+
+    gain.gain.setValueAtTime(
+      0.001,
+      start
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.12,
+      start+0.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      start+0.3
+    );
+
+    oscillator.start(start);
+
+    oscillator.stop(start+0.3);
+
+  });
+
+}
+
+
+/* =========================
+   STORAGE
+========================= */
 
 function loadState(){
 
   try{
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
 
     if(saved){
-      return JSON.parse(saved);
+
+      const parsed =
+        JSON.parse(saved);
+
+      /*
+        Make sure old versions still work.
+      */
+
+      parsed.teams =
+        parsed.teams || defaultState.teams;
+
+      parsed.missions =
+        parsed.missions || defaultState.missions;
+
+      parsed.currentMission =
+        parsed.currentMission || 0;
+
+      return parsed;
+
     }
 
   }catch(e){}
 
-  return JSON.parse(JSON.stringify(defaultState));
+  return JSON.parse(
+    JSON.stringify(defaultState)
+  );
+
 }
 
 
 function saveState(){
 
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
 
 }
 
 
+/* =========================
+   RENDER
+========================= */
+
 function render(){
 
   renderTeams();
+
   renderMission();
+
   renderMissionList();
+
   renderTeamInputs();
 
 }
@@ -1000,21 +1581,27 @@ function renderTeams(){
     "#35d07f"
   ];
 
-  const box = document.getElementById("teams");
+  const box =
+    document.getElementById("teams");
 
-  box.innerHTML = state.teams.map((team,i)=>`
+  box.innerHTML =
+    state.teams.map((team,i)=>`
 
-    <div class="team" style="--team:${colors[i]}">
+<div
+class="team"
+style="--team:${colors[i]}">
 
-      <div class="team-name">${escapeHTML(team.name)}</div>
+<div class="team-name">
+${escapeHTML(team.name)}
+</div>
 
-      <div class="team-money">
-        <span>$</span>${team.money}
-      </div>
+<div class="team-money">
+<span>$</span>${team.money}
+</div>
 
-    </div>
+</div>
 
-  `).join("");
+`).join("");
 
 }
 
@@ -1023,58 +1610,121 @@ function renderMission(){
 
   if(!state.missions.length){
 
-    document.getElementById("missionTitle").textContent="No Missions";
-    document.getElementById("missionInstructions").textContent="Add a mission from Mission Manager.";
-    document.getElementById("missionNumber").textContent="";
-    document.getElementById("missionReward").textContent="$0";
+    document.getElementById(
+      "missionTitle"
+    ).textContent="No Missions";
+
+    document.getElementById(
+      "missionInstructions"
+    ).textContent=
+      "Add a mission from Mission Manager.";
+
+    document.getElementById(
+      "missionNumber"
+    ).textContent="";
+
+    document.getElementById(
+      "missionReward"
+    ).textContent="$0";
+
     return;
 
   }
 
-  if(state.currentMission >= state.missions.length){
-    state.currentMission = state.missions.length-1;
+
+  if(
+    state.currentMission >=
+    state.missions.length
+  ){
+
+    state.currentMission =
+      state.missions.length-1;
+
   }
 
-  const mission = state.missions[state.currentMission];
 
-  document.getElementById("missionNumber").textContent =
+  const mission =
+    state.missions[state.currentMission];
+
+
+  document.getElementById(
+    "missionNumber"
+  ).textContent =
     `MISSION ${state.currentMission+1} / ${state.missions.length}`;
 
-  document.getElementById("missionTitle").textContent = mission.title;
 
-  document.getElementById("missionInstructions").textContent =
+  document.getElementById(
+    "missionTitle"
+  ).textContent =
+    mission.title;
+
+
+  document.getElementById(
+    "missionInstructions"
+  ).textContent =
     mission.instructions;
 
-  const payout = mission.reward * (mission.double ? 2 : 1);
 
-  document.getElementById("missionReward").textContent =
+  const payout =
+    mission.reward *
+    (mission.double ? 2 : 1);
+
+
+  document.getElementById(
+    "missionReward"
+  ).textContent =
     `$${payout}`;
 
-  document.getElementById("doubleBadge").style.display =
-    mission.double ? "inline-block" : "none";
 
-  document.getElementById("finalBadge").style.display =
-    mission.final ? "inline-block" : "none";
+  document.getElementById(
+    "doubleBadge"
+  ).style.display =
+    mission.double
+    ? "inline-block"
+    : "none";
 
-  document.getElementById("missionType").textContent =
-    mission.final ? "FINAL MISSION" : "MISSION";
+
+  document.getElementById(
+    "finalBadge"
+  ).style.display =
+    mission.final
+    ? "inline-block"
+    : "none";
+
+
+  document.getElementById(
+    "missionType"
+  ).textContent =
+    mission.final
+    ? "FINAL MISSION"
+    : "MISSION";
+
 
   stopTimer();
 
-  timeLeft = mission.time;
+  timeLeft =
+    mission.time;
 
   updateTimer();
 
-  const status = document.getElementById("awardStatus");
+
+  const status =
+    document.getElementById(
+      "awardStatus"
+    );
+
 
   if(mission.awarded){
 
     status.innerHTML =
-      `<div class="awarded-label">✓ Awarded to ${escapeHTML(state.teams[mission.winner].name)}</div>`;
+      `<div class="awarded-label">
+      ✓ Awarded to
+      ${escapeHTML(state.teams[mission.winner].name)}
+      </div>`;
 
   }else{
 
-    status.innerHTML = "";
+    status.innerHTML="";
 
   }
 
@@ -1085,10 +1735,16 @@ function renderTeamInputs(){
 
   state.teams.forEach((team,i)=>{
 
-    const input = document.getElementById(`teamInput${i}`);
+    const input =
+      document.getElementById(
+        `teamInput${i}`
+      );
 
     if(input){
-      input.value = team.name;
+
+      input.value =
+        team.name;
+
     }
 
   });
@@ -1098,102 +1754,159 @@ function renderTeamInputs(){
 
 function renderMissionList(){
 
-  const list = document.getElementById("missionList");
+  const list =
+    document.getElementById(
+      "missionList"
+    );
+
 
   if(!state.missions.length){
 
-    list.innerHTML='<div class="empty">No missions yet.</div>';
+    list.innerHTML =
+      '<div class="empty">No missions yet.</div>';
+
     return;
 
   }
 
-  list.innerHTML = state.missions.map((mission,i)=>`
 
-    <div class="mission-item">
+  list.innerHTML =
+    state.missions.map((mission,i)=>`
 
-      <strong>
-        ${i+1}. ${escapeHTML(mission.title)}
-      </strong>
+<div class="mission-item">
 
-      <small>
-        $${mission.reward * (mission.double ? 2 : 1)}
-        · ${mission.time}s
-        ${mission.double ? " · DOUBLE" : ""}
-        ${mission.final ? " · FINAL" : ""}
-      </small>
+<strong>
+${i+1}. ${escapeHTML(mission.title)}
+</strong>
 
-      <div class="item-actions">
+<small>
+$${mission.reward * (mission.double ? 2 : 1)}
+· ${mission.time}s
+${mission.double ? " · DOUBLE" : ""}
+${mission.final ? " · FINAL" : ""}
+</small>
 
-        <button class="small-btn" onclick="editMission(${i})">
-          EDIT
-        </button>
+<div class="item-actions">
 
-        <button class="small-btn final" onclick="setFinal(${i})">
-          ${mission.final ? "UNSET FINAL" : "SET FINAL"}
-        </button>
+<button
+class="small-btn"
+onclick="editMission(${i})">
+EDIT
+</button>
 
-        <button class="small-btn delete" onclick="deleteMission(${i})">
-          DELETE
-        </button>
+<button
+class="small-btn final"
+onclick="setFinal(${i})">
+${mission.final ? "UNSET FINAL" : "SET FINAL"}
+</button>
 
-      </div>
+<button
+class="small-btn delete"
+onclick="deleteMission(${i})">
+DELETE
+</button>
 
-    </div>
+</div>
 
-  `).join("");
+</div>
+
+`).join("");
 
 }
 
+
+/* =========================
+   TEAM SETTINGS
+========================= */
 
 function saveTeamNames(){
 
   for(let i=0;i<4;i++){
 
-    const value = document.getElementById(`teamInput${i}`).value.trim();
+    const value =
+      document.getElementById(
+        `teamInput${i}`
+      ).value.trim();
 
     if(value){
-      state.teams[i].name = value;
+
+      state.teams[i].name =
+        value;
+
     }
 
   }
 
   saveState();
+
   renderTeams();
 
 }
 
 
+/* =========================
+   MISSIONS
+========================= */
+
 function saveMission(){
 
   const title =
-    document.getElementById("missionInputTitle").value.trim();
+    document.getElementById(
+      "missionInputTitle"
+    ).value.trim();
+
 
   const instructions =
-    document.getElementById("missionInputInstructions").value.trim();
+    document.getElementById(
+      "missionInputInstructions"
+    ).value.trim();
+
 
   const reward =
-    Number(document.getElementById("missionInputReward").value);
+    Number(
+      document.getElementById(
+        "missionInputReward"
+      ).value
+    );
+
 
   const time =
-    Number(document.getElementById("missionInputTime").value);
+    Number(
+      document.getElementById(
+        "missionInputTime"
+      ).value
+    );
+
 
   const double =
-    document.getElementById("missionInputDouble").checked;
+    document.getElementById(
+      "missionInputDouble"
+    ).checked;
+
 
   const final =
-    document.getElementById("missionInputFinal").checked;
+    document.getElementById(
+      "missionInputFinal"
+    ).checked;
 
 
   if(!title || !instructions){
 
-    alert("Please enter the mission title and instructions.");
+    alert(
+      "Please enter the mission title and instructions."
+    );
+
     return;
 
   }
 
-  if(reward <= 0 || time <= 0){
 
-    alert("Reward and time must be greater than zero.");
+  if(reward<=0 || time<=0){
+
+    alert(
+      "Reward and time must be greater than zero."
+    );
+
     return;
 
   }
@@ -1201,67 +1914,107 @@ function saveMission(){
 
   if(editingMission !== null){
 
-    const old = state.missions[editingMission];
+    const old =
+      state.missions[editingMission];
 
-    old.title = title;
-    old.instructions = instructions;
-    old.reward = reward;
-    old.time = time;
-    old.double = double;
+
+    old.title =
+      title;
+
+    old.instructions =
+      instructions;
+
+    old.reward =
+      reward;
+
+    old.time =
+      time;
+
+    old.double =
+      double;
+
 
     if(final){
 
-      state.missions.forEach((m,i)=>{
-        m.final = i === editingMission;
-      });
+      state.missions.forEach(
+        (m,i)=>{
+          m.final =
+            i === editingMission;
+        }
+      );
 
     }else{
 
-      old.final = false;
+      old.final=false;
 
     }
 
-    editingMission = null;
 
-    document.getElementById("missionSaveBtn").textContent =
+    editingMission=null;
+
+
+    document.getElementById(
+      "missionSaveBtn"
+    ).textContent =
       "ADD MISSION";
 
-    document.getElementById("cancelEditBtn").style.display =
+
+    document.getElementById(
+      "cancelEditBtn"
+    ).style.display =
       "none";
+
 
   }else{
 
-    if(state.missions.length >= 20){
 
-      alert("You can only have 20 missions.");
+    if(state.missions.length>=20){
+
+      alert(
+        "You can only have 20 missions."
+      );
+
       return;
 
     }
 
+
     if(final){
 
-      state.missions.forEach(m=>m.final=false);
+      state.missions.forEach(
+        m=>m.final=false
+      );
 
     }
 
+
     state.missions.push({
 
-      title,
-      instructions,
-      reward,
-      time,
-      double,
-      final,
+      title:title,
+
+      instructions:instructions,
+
+      reward:reward,
+
+      time:time,
+
+      double:double,
+
+      final:final,
+
       awarded:false,
+
       winner:null
 
     });
 
   }
 
+
   clearMissionForm();
 
   saveState();
+
   render();
 
 }
@@ -1269,44 +2022,91 @@ function saveMission(){
 
 function clearMissionForm(){
 
-  document.getElementById("missionInputTitle").value="";
-  document.getElementById("missionInputInstructions").value="";
-  document.getElementById("missionInputReward").value=100;
-  document.getElementById("missionInputTime").value=60;
-  document.getElementById("missionInputDouble").checked=false;
-  document.getElementById("missionInputFinal").checked=false;
+  document.getElementById(
+    "missionInputTitle"
+  ).value="";
+
+
+  document.getElementById(
+    "missionInputInstructions"
+  ).value="";
+
+
+  document.getElementById(
+    "missionInputReward"
+  ).value=100;
+
+
+  document.getElementById(
+    "missionInputTime"
+  ).value=60;
+
+
+  document.getElementById(
+    "missionInputDouble"
+  ).checked=false;
+
+
+  document.getElementById(
+    "missionInputFinal"
+  ).checked=false;
 
 }
 
 
 function editMission(index){
 
-  const mission = state.missions[index];
+  const mission =
+    state.missions[index];
 
-  editingMission = index;
+  editingMission=index;
 
-  document.getElementById("missionInputTitle").value =
+
+  document.getElementById(
+    "missionInputTitle"
+  ).value =
     mission.title;
 
-  document.getElementById("missionInputInstructions").value =
+
+  document.getElementById(
+    "missionInputInstructions"
+  ).value =
     mission.instructions;
 
-  document.getElementById("missionInputReward").value =
+
+  document.getElementById(
+    "missionInputReward"
+  ).value =
     mission.reward;
 
-  document.getElementById("missionInputTime").value =
+
+  document.getElementById(
+    "missionInputTime"
+  ).value =
     mission.time;
 
-  document.getElementById("missionInputDouble").checked =
+
+  document.getElementById(
+    "missionInputDouble"
+  ).checked =
     mission.double;
 
-  document.getElementById("missionInputFinal").checked =
+
+  document.getElementById(
+    "missionInputFinal"
+  ).checked =
     mission.final;
 
-  document.getElementById("missionSaveBtn").textContent =
+
+  document.getElementById(
+    "missionSaveBtn"
+  ).textContent =
     "SAVE CHANGES";
 
-  document.getElementById("cancelEditBtn").style.display =
+
+  document.getElementById(
+    "cancelEditBtn"
+  ).style.display =
     "block";
 
 }
@@ -1314,14 +2114,19 @@ function editMission(index){
 
 function cancelEdit(){
 
-  editingMission = null;
+  editingMission=null;
 
   clearMissionForm();
 
-  document.getElementById("missionSaveBtn").textContent =
+  document.getElementById(
+    "missionSaveBtn"
+  ).textContent =
     "ADD MISSION";
 
-  document.getElementById("cancelEditBtn").style.display =
+
+  document.getElementById(
+    "cancelEditBtn"
+  ).style.display =
     "none";
 
 }
@@ -1329,27 +2134,48 @@ function cancelEdit(){
 
 function deleteMission(index){
 
-  if(!confirm("Delete this mission?")){
+  if(!confirm(
+    "Delete this mission?"
+  )){
+
     return;
+
   }
+
 
   if(state.missions[index].awarded){
 
-    alert("This mission has already been awarded and cannot be deleted.");
+    alert(
+      "This mission has already been awarded and cannot be deleted."
+    );
+
     return;
 
   }
 
-  state.missions.splice(index,1);
 
-  if(state.currentMission >= state.missions.length){
+  state.missions.splice(
+    index,
+    1
+  );
+
+
+  if(
+    state.currentMission >=
+    state.missions.length
+  ){
 
     state.currentMission =
-      Math.max(0,state.missions.length-1);
+      Math.max(
+        0,
+        state.missions.length-1
+      );
 
   }
 
+
   saveState();
+
   render();
 
 }
@@ -1357,27 +2183,44 @@ function deleteMission(index){
 
 function setFinal(index){
 
-  const currentlyFinal = state.missions[index].final;
+  const currentlyFinal =
+    state.missions[index].final;
 
-  state.missions.forEach(m=>m.final=false);
+
+  state.missions.forEach(
+    m=>m.final=false
+  );
+
 
   if(!currentlyFinal){
+
     state.missions[index].final=true;
+
   }
 
+
   saveState();
+
   render();
 
 }
 
 
+/* =========================
+   NAVIGATION
+========================= */
+
 function nextMission(){
 
-  if(state.currentMission < state.missions.length-1){
+  if(
+    state.currentMission <
+    state.missions.length-1
+  ){
 
     state.currentMission++;
 
     saveState();
+
     render();
 
   }else{
@@ -1391,11 +2234,12 @@ function nextMission(){
 
 function previousMission(){
 
-  if(state.currentMission > 0){
+  if(state.currentMission>0){
 
     state.currentMission--;
 
     saveState();
+
     render();
 
   }
@@ -1403,39 +2247,100 @@ function previousMission(){
 }
 
 
+/* =========================
+   TIMER
+========================= */
+
 function startTimer(){
 
-  if(timerInterval || !state.missions.length){
+  if(
+    timerInterval ||
+    !state.missions.length
+  ){
+
     return;
+
   }
 
-  if(timeLeft <= 0){
-    timeLeft = state.missions[state.currentMission].time;
+
+  /* Activate audio after user clicks START */
+
+  getAudioContext();
+
+
+  if(timeLeft<=0){
+
+    timeLeft =
+      state.missions[
+        state.currentMission
+      ].time;
+
   }
 
-  timerInterval = setInterval(()=>{
 
-    timeLeft--;
+  timerInterval =
+    setInterval(()=>{
 
-    updateTimer();
+      timeLeft--;
 
-    if(timeLeft <= 0){
+      updateTimer();
 
-      stopTimer();
 
-      beep();
+      /*
+        Normal ticking sound
+        before the final 10 seconds
+      */
 
-      setTimeout(()=>{
+      if(timeLeft>10){
 
-        if(!state.missions[state.currentMission].awarded){
-          selectWinner();
-        }
+        playTimerTick();
 
-      },300);
+      }
 
-    }
 
-  },1000);
+      /*
+        Buzzer during the last 10 seconds
+      */
+
+      if(
+        timeLeft<=10 &&
+        timeLeft>0
+      ){
+
+        playBuzzer();
+
+      }
+
+
+      /*
+        Time finished
+      */
+
+      if(timeLeft<=0){
+
+        stopTimer();
+
+        playExplosion();
+
+
+        setTimeout(()=>{
+
+          if(
+            !state.missions[
+              state.currentMission
+            ].awarded
+          ){
+
+            selectWinner();
+
+          }
+
+        },500);
+
+      }
+
+
+    },1000);
 
 }
 
@@ -1451,7 +2356,10 @@ function stopTimer(){
 
   if(timerInterval){
 
-    clearInterval(timerInterval);
+    clearInterval(
+      timerInterval
+    );
+
     timerInterval=null;
 
   }
@@ -1466,7 +2374,9 @@ function resetTimer(){
   if(state.missions.length){
 
     timeLeft =
-      state.missions[state.currentMission].time;
+      state.missions[
+        state.currentMission
+      ].time;
 
   }else{
 
@@ -1482,91 +2392,163 @@ function resetTimer(){
 function updateTimer(){
 
   const minutes =
-    Math.floor(timeLeft/60).toString().padStart(2,"0");
+    Math.floor(
+      timeLeft/60
+    )
+    .toString()
+    .padStart(2,"0");
+
 
   const seconds =
-    (timeLeft%60).toString().padStart(2,"0");
+    (timeLeft%60)
+    .toString()
+    .padStart(2,"0");
+
 
   const element =
-    document.getElementById("timer");
+    document.getElementById(
+      "timer"
+    );
+
 
   element.textContent =
     `${minutes}:${seconds}`;
 
+
   element.classList.toggle(
     "warning",
-    timeLeft <= 10
+    timeLeft<=10
   );
 
 }
 
 
+/* =========================
+   AWARD SYSTEM
+========================= */
+
 function selectWinner(teamIndex=null){
 
   const mission =
-    state.missions[state.currentMission];
+    state.missions[
+      state.currentMission
+    ];
 
-  if(!mission || mission.awarded){
+
+  if(
+    !mission ||
+    mission.awarded
+  ){
+
     return;
+
   }
 
-  pendingWinner = teamIndex;
+
+  pendingWinner =
+    teamIndex;
+
 
   const payout =
-    mission.reward * (mission.double ? 2 : 1);
+    mission.reward *
+    (mission.double ? 2 : 1);
 
-  if(teamIndex === null){
 
-    document.getElementById("awardTitle").textContent =
-      "MISSION TIME IS UP";
+  if(teamIndex===null){
 
-    document.getElementById("awardText").textContent =
+    document.getElementById(
+      "awardTitle"
+    ).textContent =
+      "TIME IS UP";
+
+
+    document.getElementById(
+      "awardText"
+    ).textContent =
       `Choose the team that completed the mission. Reward: $${payout}`;
 
-    document.querySelector(".confirm-buttons").style.display="none";
+
+    document.querySelector(
+      ".confirm-buttons"
+    ).style.display =
+      "none";
+
 
     const choice =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
-    choice.className="team-choice";
-    choice.id="temporaryTeamChoice";
+
+    choice.className =
+      "team-choice";
+
+
+    choice.id =
+      "temporaryTeamChoice";
+
 
     choice.innerHTML =
-      state.teams.map((team,i)=>`
-        <button onclick="selectWinner(${i})">
-          ${escapeHTML(team.name)}
-        </button>
-      `).join("");
+      state.teams.map(
+        (team,i)=>`
 
-    document.querySelector("#awardOverlay .modal")
-      .insertBefore(
-        choice,
-        document.querySelector(".confirm-buttons")
-      );
+<button
+onclick="selectWinner(${i})">
+
+${escapeHTML(team.name)}
+
+</button>
+
+`
+      ).join("");
+
+
+    document.querySelector(
+      "#awardOverlay .modal"
+    ).insertBefore(
+      choice,
+      document.querySelector(
+        ".confirm-buttons"
+      )
+    );
+
 
   }else{
 
-    document.getElementById("awardTitle").textContent =
+
+    document.getElementById(
+      "awardTitle"
+    ).textContent =
       "CONFIRM AWARD";
 
-    document.getElementById("awardText").textContent =
+
+    document.getElementById(
+      "awardText"
+    ).textContent =
       `Award $${payout} to ${state.teams[teamIndex].name}?`;
 
-    document.querySelector(".confirm-buttons").style.display =
+
+    document.querySelector(
+      ".confirm-buttons"
+    ).style.display =
       "flex";
 
   }
 
-  document.getElementById("awardOverlay")
-    .classList.add("show");
+
+  document.getElementById(
+    "awardOverlay"
+  ).classList.add("show");
 
 }
 
 
 function confirmAward(){
 
-  if(pendingWinner === null){
+  if(pendingWinner===null){
+
     return;
+
   }
 
   award(pendingWinner);
@@ -1577,33 +2559,56 @@ function confirmAward(){
 function award(teamIndex){
 
   const mission =
-    state.missions[state.currentMission];
+    state.missions[
+      state.currentMission
+    ];
 
-  if(!mission || mission.awarded){
+
+  if(
+    !mission ||
+    mission.awarded
+  ){
+
     return;
+
   }
 
+
   const payout =
-    mission.reward * (mission.double ? 2 : 1);
+    mission.reward *
+    (mission.double ? 2 : 1);
+
 
   mission.awarded=true;
-  mission.winner=teamIndex;
 
-  state.teams[teamIndex].money += payout;
+  mission.winner=
+    teamIndex;
+
+
+  state.teams[
+    teamIndex
+  ].money += payout;
+
 
   saveState();
 
   stopTimer();
 
-  closeOverlay("awardOverlay");
+  closeOverlay(
+    "awardOverlay"
+  );
 
   removeTemporaryChoice();
 
-  showMoneyAnimation(teamIndex,payout);
+  showMoneyAnimation(
+    teamIndex,
+    payout
+  );
 
-  beep(true);
+  playSuccess();
 
   render();
+
 
   setTimeout(()=>{
 
@@ -1617,195 +2622,308 @@ function award(teamIndex){
 function removeTemporaryChoice(){
 
   const element =
-    document.getElementById("temporaryTeamChoice");
+    document.getElementById(
+      "temporaryTeamChoice"
+    );
+
 
   if(element){
+
     element.remove();
+
   }
+
 
   pendingWinner=null;
 
 }
 
 
+/* =========================
+   LEADERBOARD
+========================= */
+
 function showStandings(auto=false){
 
-  renderStandings("standingsList");
+  renderStandings(
+    "standingsList"
+  );
 
-  document.getElementById("standingsOverlay")
-    .classList.add("show");
+
+  document.getElementById(
+    "standingsOverlay"
+  ).classList.add("show");
+
 
   let seconds=5;
 
-  document.getElementById("standingsCountdown").textContent =
+
+  document.getElementById(
+    "standingsCountdown"
+  ).textContent =
     seconds;
 
-  clearInterval(standingsTimer);
 
-  standingsTimer=setInterval(()=>{
+  clearInterval(
+    standingsTimer
+  );
 
-    seconds--;
 
-    document.getElementById("standingsCountdown").textContent =
-      seconds;
+  standingsTimer =
+    setInterval(()=>{
 
-    if(seconds<=0){
+      seconds--;
 
-      clearInterval(standingsTimer);
 
-      closeOverlay("standingsOverlay");
+      document.getElementById(
+        "standingsCountdown"
+      ).textContent =
+        seconds;
 
-      if(auto){
 
-        const mission =
-          state.missions[state.currentMission];
+      if(seconds<=0){
 
-        if(mission && mission.final){
+        clearInterval(
+          standingsTimer
+        );
 
-          setTimeout(()=>showFinal(),300);
 
-        }else if(state.currentMission < state.missions.length-1){
+        closeOverlay(
+          "standingsOverlay"
+        );
 
-          state.currentMission++;
 
-          saveState();
-          render();
+        if(auto){
 
-        }else{
+          const mission =
+            state.missions[
+              state.currentMission
+            ];
 
-          showFinal();
+
+          if(
+            mission &&
+            mission.final
+          ){
+
+            setTimeout(
+              ()=>showFinal(),
+              300
+            );
+
+
+          }else if(
+            state.currentMission <
+            state.missions.length-1
+          ){
+
+            state.currentMission++;
+
+            saveState();
+
+            render();
+
+
+          }else{
+
+            showFinal();
+
+          }
 
         }
 
       }
 
-    }
-
-  },1000);
+    },1000);
 
 }
 
 
-function renderStandings(elementId){
+function renderStandings(
+  elementId
+){
 
   const sorted =
-    [...state.teams].sort(
+    [...state.teams]
+    .sort(
       (a,b)=>b.money-a.money
     );
 
-  document.getElementById(elementId).innerHTML =
-    sorted.map((team,index)=>`
 
-      <div class="standing-row">
+  document.getElementById(
+    elementId
+  ).innerHTML =
+    sorted.map(
+      (team,index)=>`
 
-        <div class="rank">
+<div class="standing-row">
 
-          <div class="rank-number">
-            ${index+1}
-          </div>
+<div class="rank">
 
-          <span>${escapeHTML(team.name)}</span>
+<div class="rank-number">
+${index+1}
+</div>
 
-        </div>
+<span>
+${escapeHTML(team.name)}
+</span>
 
-        <div class="standing-money">
-          $${team.money}
-        </div>
+</div>
 
-      </div>
+<div class="standing-money">
+$${team.money}
+</div>
 
-    `).join("");
+</div>
+
+`
+    ).join("");
 
 }
 
+
+/* =========================
+   FINAL RESULTS
+========================= */
 
 function showFinal(){
 
   stopTimer();
 
+
   const sorted =
-    [...state.teams].sort(
+    [...state.teams]
+    .sort(
       (a,b)=>b.money-a.money
     );
 
+
   if(!sorted.length){
+
     return;
+
   }
 
-  document.getElementById("finalWinner").textContent =
+
+  document.getElementById(
+    "finalWinner"
+  ).textContent =
     sorted[0].name;
 
-  document.getElementById("finalList").innerHTML =
-    sorted.map((team,index)=>`
 
-      <div class="standing-row">
+  document.getElementById(
+    "finalList"
+  ).innerHTML =
+    sorted.map(
+      (team,index)=>`
 
-        <div class="rank">
+<div class="standing-row">
 
-          <div class="rank-number">
-            ${index+1}
-          </div>
+<div class="rank">
 
-          <span>${escapeHTML(team.name)}</span>
+<div class="rank-number">
+${index+1}
+</div>
 
-        </div>
+<span>
+${escapeHTML(team.name)}
+</span>
 
-        <div class="standing-money">
-          $${team.money}
-        </div>
+</div>
 
-      </div>
+<div class="standing-money">
+$${team.money}
+</div>
 
-    `).join("");
+</div>
 
-  document.getElementById("finalOverlay")
-    .classList.add("show");
+`
+    ).join("");
+
+
+  document.getElementById(
+    "finalOverlay"
+  ).classList.add("show");
 
 }
 
+
+/* =========================
+   NEW BATTLE
+========================= */
 
 function newBattle(){
 
   if(!confirm(
     "Start a new battle? Team money and mission awards will be reset, but your missions and team names will stay."
   )){
+
     return;
+
   }
+
 
   stopTimer();
 
-  state.teams.forEach(team=>{
-    team.money=0;
-  });
 
-  state.missions.forEach(mission=>{
-    mission.awarded=false;
-    mission.winner=null;
-  });
+  state.teams.forEach(
+    team=>{
+      team.money=0;
+    }
+  );
+
+
+  state.missions.forEach(
+    mission=>{
+      mission.awarded=false;
+      mission.winner=null;
+    }
+  );
+
 
   state.currentMission=0;
 
+
   saveState();
 
-  closeOverlay("finalOverlay");
-  closeOverlay("standingsOverlay");
-  closeOverlay("awardOverlay");
+
+  closeOverlay(
+    "finalOverlay"
+  );
+
+  closeOverlay(
+    "standingsOverlay"
+  );
+
+  closeOverlay(
+    "awardOverlay"
+  );
+
 
   render();
 
 }
 
 
+/* =========================
+   UI
+========================= */
+
 function closeOverlay(id){
 
-  document.getElementById(id)
-    .classList.remove("show");
+  document.getElementById(
+    id
+  ).classList.remove("show");
+
 
   if(id==="awardOverlay"){
 
     removeTemporaryChoice();
 
-    document.querySelector(".confirm-buttons").style.display =
+
+    document.querySelector(
+      ".confirm-buttons"
+    ).style.display =
       "flex";
 
   }
@@ -1813,106 +2931,110 @@ function closeOverlay(id){
 }
 
 
-function showMoneyAnimation(teamIndex,payout){
+/* =========================
+   MONEY ANIMATION
+========================= */
+
+function showMoneyAnimation(
+  teamIndex,
+  payout
+){
 
   const cards =
-    document.querySelectorAll(".team");
+    document.querySelectorAll(
+      ".team"
+    );
+
 
   if(!cards[teamIndex]){
+
     return;
+
   }
 
+
   const rect =
-    cards[teamIndex].getBoundingClientRect();
+    cards[
+      teamIndex
+    ].getBoundingClientRect();
+
 
   const element =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  element.className="float-money";
 
-  element.textContent=`+$${payout}`;
+  element.className =
+    "float-money";
+
+
+  element.textContent =
+    `+$${payout}`;
+
 
   element.style.left =
     `${rect.left + rect.width/2}px`;
 
+
   element.style.top =
     `${rect.top}px`;
 
-  document.body.appendChild(element);
 
-  setTimeout(()=>{
-    element.remove();
-  },1400);
-
-}
+  document.body.appendChild(
+    element
+  );
 
 
-function beep(success=false){
-
-  try{
-
-    const AudioContext =
-      window.AudioContext ||
-      window.webkitAudioContext;
-
-    if(!AudioContext){
-      return;
-    }
-
-    const ctx =
-      new AudioContext();
-
-    const oscillator =
-      ctx.createOscillator();
-
-    const gain =
-      ctx.createGain();
-
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-
-    oscillator.frequency.value =
-      success ? 650 : 350;
-
-    oscillator.type="sine";
-
-    gain.gain.setValueAtTime(
-      .0001,
-      ctx.currentTime
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .12,
-      ctx.currentTime+.02
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .0001,
-      ctx.currentTime+.35
-    );
-
-    oscillator.start();
-
-    oscillator.stop(
-      ctx.currentTime+.35
-    );
-
-  }catch(e){}
+  setTimeout(
+    ()=>{
+      element.remove();
+    },
+    1400
+  );
 
 }
 
+
+/* =========================
+   SECURITY
+========================= */
 
 function escapeHTML(text){
 
   return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
+
+/* =========================
+   START
+========================= */
 
 render();
 
