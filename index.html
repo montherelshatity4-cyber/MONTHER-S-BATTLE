@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monther's Class Battle</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top,#202044 0%,#0c0d18 45%,#06070d 100%);
+  color:#fff;
+  min-height:100vh;
+}
+
+button,input,textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.header{
+  text-align:center;
+  padding:28px 20px 18px;
+}
+
+.header h1{
+  font-size:clamp(30px,5vw,52px);
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.header p{
+  margin-top:8px;
+  color:#b78cff;
+  font-size:clamp(13px,2vw,17px);
+  font-weight:700;
+}
+
+.container{
+  width:min(1450px,94%);
+  margin:auto;
+}
+
+.teams{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin:15px 0 22px;
+}
+
+.team{
+  background:rgba(20,22,36,.9);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.team::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:5px;
+  background:var(--team);
+}
+
+.team-name{
+  font-size:15px;
+  font-weight:800;
+  color:#bfc2d8;
+  text-transform:uppercase;
+}
+
+.team-money{
+  margin-top:8px;
+  font-size:32px;
+  font-weight:900;
+}
+
+.team-money span{
+  color:#f5c84b;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr 350px;
+  gap:20px;
+  align-items:start;
+}
+
+.card{
+  background:rgba(17,19,32,.94);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  box-shadow:0 15px 45px rgba(0,0,0,.3);
+}
+
+.mission-card{
+  padding:30px;
+  min-height:560px;
+  display:flex;
+  flex-direction:column;
+}
+
+.mission-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.badge{
+  background:#24263c;
+  color:#c6c8dd;
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.final-badge{
+  background:linear-gradient(135deg,#8f5b00,#f5c84b);
+  color:#111;
+  margin-left:7px;
+}
+
+.mission-number{
+  color:#888da8;
+  font-size:14px;
+  font-weight:700;
+}
+
+.mission-title{
+  margin-top:35px;
+  font-size:clamp(30px,5vw,55px);
+  line-height:1.05;
+  font-weight:900;
+}
+
+.mission-instructions{
+  margin-top:20px;
+  color:#c7c9d8;
+  font-size:18px;
+  line-height:1.65;
+  max-width:850px;
+}
+
+.reward-box{
+  margin-top:30px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.reward{
+  font-size:38px;
+  font-weight:900;
+  color:#f5c84b;
+}
+
+.double{
+  background:#5b32a8;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.timer{
+  margin-top:auto;
+  padding-top:35px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.timer-number{
+  font-size:42px;
+  font-weight:900;
+  color:#fff;
+}
+
+.timer-number.warning{
+  color:#ff6b6b;
+}
+
+.timer-buttons{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:12px 17px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:#7c4dff;
+  color:#fff;
+}
+
+.btn-secondary{
+  background:#282b40;
+  color:#fff;
+}
+
+.btn-danger{
+  background:#8e3030;
+  color:#fff;
+}
+
+.btn-gold{
+  background:#f5c84b;
+  color:#111;
+}
+
+.navigation{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.side-card{
+  padding:20px;
+}
+
+.side-title{
+  font-size:14px;
+  color:#9297b2;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:15px;
+}
+
+.award-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.award-btn{
+  border:1px solid rgba(255,255,255,.1);
+  background:#202337;
+  color:white;
+  padding:13px 8px;
+  border-radius:12px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.award-btn:hover{
+  background:#7c4dff;
+}
+
+.awarded-label{
+  margin-top:12px;
+  padding:10px;
+  background:#163321;
+  color:#70e090;
+  border-radius:10px;
+  font-size:13px;
+  text-align:center;
+  font-weight:800;
+}
+
+.full{
+  width:100%;
+  margin-top:9px;
+}
+
+details summary{
+  cursor:pointer;
+  list-style:none;
+  font-weight:900;
+}
+
+details summary::-webkit-details-marker{
+  display:none;
+}
+
+details summary::after{
+  content:"+";
+  float:right;
+  color:#9d78ff;
+  font-size:20px;
+}
+
+details[open] summary::after{
+  content:"−";
+}
+
+.form{
+  margin-top:18px;
+}
+
+.form label{
+  display:block;
+  font-size:12px;
+  color:#9297b2;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.form input,
+.form textarea{
+  width:100%;
+  background:#0f1120;
+  border:1px solid #2b2e44;
+  color:white;
+  border-radius:10px;
+  padding:11px;
+  outline:none;
+  margin-bottom:12px;
+}
+
+.form input:focus,
+.form textarea:focus{
+  border-color:#7c4dff;
+}
+
+.form textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+  color:#bbbfd1;
+  font-size:13px;
+}
+
+.checkbox input{
+  width:auto;
+  margin:0;
+}
+
+.mission-list{
+  margin-top:15px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:300px;
+  overflow:auto;
+}
+
+.mission-item{
+  background:#101221;
+  border:1px solid #292c40;
+  border-radius:10px;
+  padding:10px;
+}
+
+.mission-item strong{
+  display:block;
+  font-size:13px;
+}
+
+.mission-item small{
+  color:#858aa5;
+}
+
+.item-actions{
+  display:flex;
+  gap:5px;
+  margin-top:8px;
+}
+
+.small-btn{
+  border:0;
+  padding:7px 9px;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:800;
+  background:#282b40;
+  color:#fff;
+}
+
+.small-btn.delete{
+  background:#642b2b;
+}
+
+.small-btn.final{
+  background:#795a18;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(9px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:20px;
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:min(700px,100%);
+  background:#151729;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 25px 80px rgba(0,0,0,.6);
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.modal h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.modal p{
+  color:#999eb7;
+  margin-bottom:22px;
+}
+
+.team-choice{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.team-choice button{
+  padding:18px;
+  border:1px solid #30334a;
+  background:#202337;
+  color:#fff;
+  border-radius:13px;
+  font-size:15px;
+  font-weight:900;
+}
+
+.team-choice button:hover{
+  background:#7c4dff;
+}
+
+.confirm-buttons{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+
+.confirm-buttons button{
+  min-width:130px;
+}
+
+.standings-list{
+  margin:20px 0;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.standing-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#202337;
+  padding:15px 18px;
+  border-radius:12px;
+}
+
+.rank{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
+}
+
+.rank-number{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#34374c;
+}
+
+.standing-money{
+  color:#f5c84b;
+  font-weight:900;
+}
+
+.countdown{
+  color:#9297b2;
+  font-size:13px;
+}
+
+.final-winner{
+  font-size:46px;
+  color:#f5c84b;
+  font-weight:900;
+  margin:15px 0;
+}
+
+.final-sub{
+  color:#aaaec2;
+}
+
+.float-money{
+  position:fixed;
+  pointer-events:none;
+  z-index:3000;
+  color:#f5c84b;
+  font-size:32px;
+  font-weight:900;
+  animation:moneyFloat 1.3s ease forwards;
+}
+
+@keyframes moneyFloat{
+  0%{opacity:0;transform:translateY(0) scale(.7)}
+  20%{opacity:1;transform:translateY(-15px) scale(1.1)}
+  100%{opacity:0;transform:translateY(-100px) scale(1)}
+}
+
+.empty{
+  text-align:center;
+  padding:50px 20px;
+  color:#777c95;
+}
+
+@media(max-width:1050px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:700px){
+  .teams{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .mission-card{
+    padding:22px;
+  }
+
+  .sidebar{
+    display:flex;
+  }
+
+  .mission-title{
+    font-size:36px;
+  }
+
+  .timer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+@media(max-width:450px){
+  .teams{
+    grid-template-columns:1fr;
+  }
+
+  .team-choice{
+    grid-template-columns:1fr;
+  }
+
+  .navigation{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Monther's Class Battle</h1>
+  <p>This game is only for monther’s class because they are the best</p>
+</header>
+
+<div class="container">
+
+  <section class="teams" id="teams"></section>
+
+  <div class="layout">
+
+    <main class="card mission-card">
+
+      <div class="mission-top">
+        <div>
+          <span class="badge" id="missionType">MISSION</span>
+          <span class="badge final-badge" id="finalBadge" style="display:none">FINAL BATTLE</span>
+        </div>
+        <div class="mission-number" id="missionNumber"></div>
+      </div>
+
+      <h2 class="mission-title" id="missionTitle"></h2>
+
+      <p class="mission-instructions" id="missionInstructions"></p>
+
+      <div class="reward-box">
+        <div class="reward" id="missionReward"></div>
+        <div class="double" id="doubleBadge" style="display:none">DOUBLE REWARD</div>
+      </div>
+
+      <div class="timer">
+        <div class="timer-number" id="timer">00:00</div>
+
+        <div class="timer-buttons">
+          <button class="btn btn-primary" onclick="startTimer()">START</button>
+          <button class="btn btn-secondary" onclick="pauseTimer()">PAUSE</button>
+          <button class="btn btn-secondary" onclick="resetTimer()">RESET</button>
+        </div>
+      </div>
+
+      <div class="navigation">
+        <button class="btn btn-secondary" onclick="previousMission()">← PREVIOUS</button>
+        <button class="btn btn-primary" onclick="nextMission()">NEXT →</button>
+      </div>
+
+    </main>
+
+    <aside class="sidebar">
+
+      <div class="card side-card">
+
+        <div class="side-title">Award Mission</div>
+
+        <div id="awardStatus"></div>
+
+        <div class="award-grid">
+          <button class="award-btn" onclick="selectWinner(0)">TEAM 1</button>
+          <button class="award-btn" onclick="selectWinner(1)">TEAM 2</button>
+          <button class="award-btn" onclick="selectWinner(2)">TEAM 3</button>
+          <button class="award-btn" onclick="selectWinner(3)">TEAM 4</button>
+        </div>
+
+        <button class="btn btn-gold full" onclick="showStandings()">VIEW LEADERBOARD</button>
+        <button class="btn btn-danger full" onclick="showFinal()">FINAL RESULTS</button>
+
+      </div>
+
+      <div class="card side-card">
+
+        <details>
+          <summary>TEAM SETTINGS</summary>
+
+          <div class="form">
+            <label>TEAM 1 NAME</label>
+            <input id="teamInput0">
+
+            <label>TEAM 2 NAME</label>
+            <input id="teamInput1">
+
+            <label>TEAM 3 NAME</label>
+            <input id="teamInput2">
+
+            <label>TEAM 4 NAME</label>
+            <input id="teamInput3">
+
+            <button class="btn btn-primary full" onclick="saveTeamNames()">
+              SAVE TEAM NAMES
+            </button>
+          </div>
+        </details>
+
+      </div>
+
+      <div class="card side-card">
+
+        <details>
+          <summary>MISSION MANAGER</summary>
+
+          <div class="form">
+
+            <label>MISSION TITLE</label>
+            <input id="missionInputTitle" placeholder="Example: Speak Fast">
+
+            <label>INSTRUCTIONS</label>
+            <textarea id="missionInputInstructions" placeholder="Write the mission instructions..."></textarea>
+
+            <div class="row">
+              <div>
+                <label>REWARD ($)</label>
+                <input id="missionInputReward" type="number" min="1" value="100">
+              </div>
+
+              <div>
+                <label>TIME (SECONDS)</label>
+                <input id="missionInputTime" type="number" min="10" value="60">
+              </div>
+            </div>
+
+            <label class="checkbox">
+              <input type="checkbox" id="missionInputDouble">
+              DOUBLE REWARD
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="missionInputFinal">
+              FINAL BATTLE
+            </label>
+
+            <button class="btn btn-primary full" id="missionSaveBtn" onclick="saveMission()">
+              ADD MISSION
+            </button>
+
+            <button class="btn btn-secondary full" onclick="cancelEdit()" id="cancelEditBtn" style="display:none">
+              CANCEL EDIT
+            </button>
+
+            <div class="mission-list" id="missionList"></div>
+
+          </div>
+
+        </details>
+
+      </div>
+
+      <div class="card side-card">
+        <div class="side-title">Battle Controls</div>
+
+        <button class="btn btn-secondary full" onclick="newBattle()">
+          NEW BATTLE
+        </button>
+
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+
+<!-- AWARD CONFIRMATION -->
+
+<div class="overlay" id="awardOverlay">
+
+  <div class="modal">
+
+    <h2 id="awardTitle">Award Mission</h2>
+
+    <p id="awardText"></p>
+
+    <div class="confirm-buttons">
+
+      <button class="btn btn-gold" onclick="confirmAward()">
+        CONFIRM
+      </button>
+
+      <button class="btn btn-secondary" onclick="closeOverlay('awardOverlay')">
+        CANCEL
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- LEADERBOARD -->
+
+<div class="overlay" id="standingsOverlay">
+
+  <div class="modal">
+
+    <h2>LEADERBOARD</h2>
+
+    <p>Current standings</p>
+
+    <div class="standings-list" id="standingsList"></div>
+
+    <div class="countdown">
+      Next mission in <span id="standingsCountdown">5</span> seconds
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- FINAL RESULTS -->
+
+<div class="overlay" id="finalOverlay">
+
+  <div class="modal">
+
+    <h2>FINAL RESULTS</h2>
+
+    <div class="final-winner" id="finalWinner"></div>
+
+    <div class="final-sub">Congratulations to the winning team!</div>
+
+    <div class="standings-list" id="finalList"></div>
+
+    <button class="btn btn-gold full" onclick="closeOverlay('finalOverlay')">
+      CLOSE
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY = "monthers_class_battle_v2";
+
+const defaultState = {
+
+  teams:[
+    {name:"TEAM 1",money:0},
+    {name:"TEAM 2",money:0},
+    {name:"TEAM 3",money:0},
+    {name:"TEAM 4",money:0}
+  ],
+
+  missions:[
+    {
+      title:"Speak Fast",
+      instructions:"Speak continuously for 2 minutes. Don't stop talking.",
+      reward:100,
+      time:120,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"Describe the Word",
+      instructions:"Describe the word without saying the word itself.",
+      reward:100,
+      time:60,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"Three-Word Story",
+      instructions:"Create a story using these three words: hospital, football, pizza.",
+      reward:150,
+      time:120,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"No Yes or No",
+      instructions:"Answer questions for 1 minute without saying YES or NO.",
+      reward:100,
+      time:60,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"Talk About It",
+      instructions:"Talk about your favorite place for 90 seconds.",
+      reward:150,
+      time:90,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"Change the Story",
+      instructions:"Create a short story. Your team can change one thing every 20 seconds.",
+      reward:200,
+      time:120,
+      double:false,
+      final:false,
+      awarded:false,
+      winner:null
+    },
+
+    {
+      title:"FINAL SPEAKING BATTLE",
+      instructions:"Your team has 3 minutes to tell an interesting story. Everyone in the team must speak.",
+      reward:300,
+      time:180,
+      double:false,
+      final:true,
+      awarded:false,
+      winner:null
+    }
+  ],
+
+  currentMission:0
+
+};
+
+
+let state = loadState();
+let timerInterval = null;
+let timeLeft = 0;
+let pendingWinner = null;
+let editingMission = null;
+let standingsTimer = null;
+
+
+function loadState(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+      return JSON.parse(saved);
+    }
+
+  }catch(e){}
+
+  return JSON.parse(JSON.stringify(defaultState));
+}
+
+
+function saveState(){
+
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+
+}
+
+
+function render(){
+
+  renderTeams();
+  renderMission();
+  renderMissionList();
+  renderTeamInputs();
+
+}
+
+
+function renderTeams(){
+
+  const colors = [
+    "#7c4dff",
+    "#00b8d9",
+    "#ff5c7a",
+    "#35d07f"
+  ];
+
+  const box = document.getElementById("teams");
+
+  box.innerHTML = state.teams.map((team,i)=>`
+
+    <div class="team" style="--team:${colors[i]}">
+
+      <div class="team-name">${escapeHTML(team.name)}</div>
+
+      <div class="team-money">
+        <span>$</span>${team.money}
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function renderMission(){
+
+  if(!state.missions.length){
+
+    document.getElementById("missionTitle").textContent="No Missions";
+    document.getElementById("missionInstructions").textContent="Add a mission from Mission Manager.";
+    document.getElementById("missionNumber").textContent="";
+    document.getElementById("missionReward").textContent="$0";
+    return;
+
+  }
+
+  if(state.currentMission >= state.missions.length){
+    state.currentMission = state.missions.length-1;
+  }
+
+  const mission = state.missions[state.currentMission];
+
+  document.getElementById("missionNumber").textContent =
+    `MISSION ${state.currentMission+1} / ${state.missions.length}`;
+
+  document.getElementById("missionTitle").textContent = mission.title;
+
+  document.getElementById("missionInstructions").textContent =
+    mission.instructions;
+
+  const payout = mission.reward * (mission.double ? 2 : 1);
+
+  document.getElementById("missionReward").textContent =
+    `$${payout}`;
+
+  document.getElementById("doubleBadge").style.display =
+    mission.double ? "inline-block" : "none";
+
+  document.getElementById("finalBadge").style.display =
+    mission.final ? "inline-block" : "none";
+
+  document.getElementById("missionType").textContent =
+    mission.final ? "FINAL MISSION" : "MISSION";
+
+  stopTimer();
+
+  timeLeft = mission.time;
+
+  updateTimer();
+
+  const status = document.getElementById("awardStatus");
+
+  if(mission.awarded){
+
+    status.innerHTML =
+      `<div class="awarded-label">✓ Awarded to ${escapeHTML(state.teams[mission.winner].name)}</div>`;
+
+  }else{
+
+    status.innerHTML = "";
+
+  }
+
+}
+
+
+function renderTeamInputs(){
+
+  state.teams.forEach((team,i)=>{
+
+    const input = document.getElementById(`teamInput${i}`);
+
+    if(input){
+      input.value = team.name;
+    }
+
+  });
+
+}
+
+
+function renderMissionList(){
+
+  const list = document.getElementById("missionList");
+
+  if(!state.missions.length){
+
+    list.innerHTML='<div class="empty">No missions yet.</div>';
+    return;
+
+  }
+
+  list.innerHTML = state.missions.map((mission,i)=>`
+
+    <div class="mission-item">
+
+      <strong>
+        ${i+1}. ${escapeHTML(mission.title)}
+      </strong>
+
+      <small>
+        $${mission.reward * (mission.double ? 2 : 1)}
+        · ${mission.time}s
+        ${mission.double ? " · DOUBLE" : ""}
+        ${mission.final ? " · FINAL" : ""}
+      </small>
+
+      <div class="item-actions">
+
+        <button class="small-btn" onclick="editMission(${i})">
+          EDIT
+        </button>
+
+        <button class="small-btn final" onclick="setFinal(${i})">
+          ${mission.final ? "UNSET FINAL" : "SET FINAL"}
+        </button>
+
+        <button class="small-btn delete" onclick="deleteMission(${i})">
+          DELETE
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function saveTeamNames(){
+
+  for(let i=0;i<4;i++){
+
+    const value = document.getElementById(`teamInput${i}`).value.trim();
+
+    if(value){
+      state.teams[i].name = value;
+    }
+
+  }
+
+  saveState();
+  renderTeams();
+
+}
+
+
+function saveMission(){
+
+  const title =
+    document.getElementById("missionInputTitle").value.trim();
+
+  const instructions =
+    document.getElementById("missionInputInstructions").value.trim();
+
+  const reward =
+    Number(document.getElementById("missionInputReward").value);
+
+  const time =
+    Number(document.getElementById("missionInputTime").value);
+
+  const double =
+    document.getElementById("missionInputDouble").checked;
+
+  const final =
+    document.getElementById("missionInputFinal").checked;
+
+
+  if(!title || !instructions){
+
+    alert("Please enter the mission title and instructions.");
+    return;
+
+  }
+
+  if(reward <= 0 || time <= 0){
+
+    alert("Reward and time must be greater than zero.");
+    return;
+
+  }
+
+
+  if(editingMission !== null){
+
+    const old = state.missions[editingMission];
+
+    old.title = title;
+    old.instructions = instructions;
+    old.reward = reward;
+    old.time = time;
+    old.double = double;
+
+    if(final){
+
+      state.missions.forEach((m,i)=>{
+        m.final = i === editingMission;
+      });
+
+    }else{
+
+      old.final = false;
+
+    }
+
+    editingMission = null;
+
+    document.getElementById("missionSaveBtn").textContent =
+      "ADD MISSION";
+
+    document.getElementById("cancelEditBtn").style.display =
+      "none";
+
+  }else{
+
+    if(state.missions.length >= 20){
+
+      alert("You can only have 20 missions.");
+      return;
+
+    }
+
+    if(final){
+
+      state.missions.forEach(m=>m.final=false);
+
+    }
+
+    state.missions.push({
+
+      title,
+      instructions,
+      reward,
+      time,
+      double,
+      final,
+      awarded:false,
+      winner:null
+
+    });
+
+  }
+
+  clearMissionForm();
+
+  saveState();
+  render();
+
+}
+
+
+function clearMissionForm(){
+
+  document.getElementById("missionInputTitle").value="";
+  document.getElementById("missionInputInstructions").value="";
+  document.getElementById("missionInputReward").value=100;
+  document.getElementById("missionInputTime").value=60;
+  document.getElementById("missionInputDouble").checked=false;
+  document.getElementById("missionInputFinal").checked=false;
+
+}
+
+
+function editMission(index){
+
+  const mission = state.missions[index];
+
+  editingMission = index;
+
+  document.getElementById("missionInputTitle").value =
+    mission.title;
+
+  document.getElementById("missionInputInstructions").value =
+    mission.instructions;
+
+  document.getElementById("missionInputReward").value =
+    mission.reward;
+
+  document.getElementById("missionInputTime").value =
+    mission.time;
+
+  document.getElementById("missionInputDouble").checked =
+    mission.double;
+
+  document.getElementById("missionInputFinal").checked =
+    mission.final;
+
+  document.getElementById("missionSaveBtn").textContent =
+    "SAVE CHANGES";
+
+  document.getElementById("cancelEditBtn").style.display =
+    "block";
+
+}
+
+
+function cancelEdit(){
+
+  editingMission = null;
+
+  clearMissionForm();
+
+  document.getElementById("missionSaveBtn").textContent =
+    "ADD MISSION";
+
+  document.getElementById("cancelEditBtn").style.display =
+    "none";
+
+}
+
+
+function deleteMission(index){
+
+  if(!confirm("Delete this mission?")){
+    return;
+  }
+
+  if(state.missions[index].awarded){
+
+    alert("This mission has already been awarded and cannot be deleted.");
+    return;
+
+  }
+
+  state.missions.splice(index,1);
+
+  if(state.currentMission >= state.missions.length){
+
+    state.currentMission =
+      Math.max(0,state.missions.length-1);
+
+  }
+
+  saveState();
+  render();
+
+}
+
+
+function setFinal(index){
+
+  const currentlyFinal = state.missions[index].final;
+
+  state.missions.forEach(m=>m.final=false);
+
+  if(!currentlyFinal){
+    state.missions[index].final=true;
+  }
+
+  saveState();
+  render();
+
+}
+
+
+function nextMission(){
+
+  if(state.currentMission < state.missions.length-1){
+
+    state.currentMission++;
+
+    saveState();
+    render();
+
+  }else{
+
+    showFinal();
+
+  }
+
+}
+
+
+function previousMission(){
+
+  if(state.currentMission > 0){
+
+    state.currentMission--;
+
+    saveState();
+    render();
+
+  }
+
+}
+
+
+function startTimer(){
+
+  if(timerInterval || !state.missions.length){
+    return;
+  }
+
+  if(timeLeft <= 0){
+    timeLeft = state.missions[state.currentMission].time;
+  }
+
+  timerInterval = setInterval(()=>{
+
+    timeLeft--;
+
+    updateTimer();
+
+    if(timeLeft <= 0){
+
+      stopTimer();
+
+      beep();
+
+      setTimeout(()=>{
+
+        if(!state.missions[state.currentMission].awarded){
+          selectWinner();
+        }
+
+      },300);
+
+    }
+
+  },1000);
+
+}
+
+
+function pauseTimer(){
+
+  stopTimer();
+
+}
+
+
+function stopTimer(){
+
+  if(timerInterval){
+
+    clearInterval(timerInterval);
+    timerInterval=null;
+
+  }
+
+}
+
+
+function resetTimer(){
+
+  stopTimer();
+
+  if(state.missions.length){
+
+    timeLeft =
+      state.missions[state.currentMission].time;
+
+  }else{
+
+    timeLeft=0;
+
+  }
+
+  updateTimer();
+
+}
+
+
+function updateTimer(){
+
+  const minutes =
+    Math.floor(timeLeft/60).toString().padStart(2,"0");
+
+  const seconds =
+    (timeLeft%60).toString().padStart(2,"0");
+
+  const element =
+    document.getElementById("timer");
+
+  element.textContent =
+    `${minutes}:${seconds}`;
+
+  element.classList.toggle(
+    "warning",
+    timeLeft <= 10
+  );
+
+}
+
+
+function selectWinner(teamIndex=null){
+
+  const mission =
+    state.missions[state.currentMission];
+
+  if(!mission || mission.awarded){
+    return;
+  }
+
+  pendingWinner = teamIndex;
+
+  const payout =
+    mission.reward * (mission.double ? 2 : 1);
+
+  if(teamIndex === null){
+
+    document.getElementById("awardTitle").textContent =
+      "MISSION TIME IS UP";
+
+    document.getElementById("awardText").textContent =
+      `Choose the team that completed the mission. Reward: $${payout}`;
+
+    document.querySelector(".confirm-buttons").style.display="none";
+
+    const choice =
+      document.createElement("div");
+
+    choice.className="team-choice";
+    choice.id="temporaryTeamChoice";
+
+    choice.innerHTML =
+      state.teams.map((team,i)=>`
+        <button onclick="selectWinner(${i})">
+          ${escapeHTML(team.name)}
+        </button>
+      `).join("");
+
+    document.querySelector("#awardOverlay .modal")
+      .insertBefore(
+        choice,
+        document.querySelector(".confirm-buttons")
+      );
+
+  }else{
+
+    document.getElementById("awardTitle").textContent =
+      "CONFIRM AWARD";
+
+    document.getElementById("awardText").textContent =
+      `Award $${payout} to ${state.teams[teamIndex].name}?`;
+
+    document.querySelector(".confirm-buttons").style.display =
+      "flex";
+
+  }
+
+  document.getElementById("awardOverlay")
+    .classList.add("show");
+
+}
+
+
+function confirmAward(){
+
+  if(pendingWinner === null){
+    return;
+  }
+
+  award(pendingWinner);
+
+}
+
+
+function award(teamIndex){
+
+  const mission =
+    state.missions[state.currentMission];
+
+  if(!mission || mission.awarded){
+    return;
+  }
+
+  const payout =
+    mission.reward * (mission.double ? 2 : 1);
+
+  mission.awarded=true;
+  mission.winner=teamIndex;
+
+  state.teams[teamIndex].money += payout;
+
+  saveState();
+
+  stopTimer();
+
+  closeOverlay("awardOverlay");
+
+  removeTemporaryChoice();
+
+  showMoneyAnimation(teamIndex,payout);
+
+  beep(true);
+
+  render();
+
+  setTimeout(()=>{
+
+    showStandings(true);
+
+  },700);
+
+}
+
+
+function removeTemporaryChoice(){
+
+  const element =
+    document.getElementById("temporaryTeamChoice");
+
+  if(element){
+    element.remove();
+  }
+
+  pendingWinner=null;
+
+}
+
+
+function showStandings(auto=false){
+
+  renderStandings("standingsList");
+
+  document.getElementById("standingsOverlay")
+    .classList.add("show");
+
+  let seconds=5;
+
+  document.getElementById("standingsCountdown").textContent =
+    seconds;
+
+  clearInterval(standingsTimer);
+
+  standingsTimer=setInterval(()=>{
+
+    seconds--;
+
+    document.getElementById("standingsCountdown").textContent =
+      seconds;
+
+    if(seconds<=0){
+
+      clearInterval(standingsTimer);
+
+      closeOverlay("standingsOverlay");
+
+      if(auto){
+
+        const mission =
+          state.missions[state.currentMission];
+
+        if(mission && mission.final){
+
+          setTimeout(()=>showFinal(),300);
+
+        }else if(state.currentMission < state.missions.length-1){
+
+          state.currentMission++;
+
+          saveState();
+          render();
+
+        }else{
+
+          showFinal();
+
+        }
+
+      }
+
+    }
+
+  },1000);
+
+}
+
+
+function renderStandings(elementId){
+
+  const sorted =
+    [...state.teams].sort(
+      (a,b)=>b.money-a.money
+    );
+
+  document.getElementById(elementId).innerHTML =
+    sorted.map((team,index)=>`
+
+      <div class="standing-row">
+
+        <div class="rank">
+
+          <div class="rank-number">
+            ${index+1}
+          </div>
+
+          <span>${escapeHTML(team.name)}</span>
+
+        </div>
+
+        <div class="standing-money">
+          $${team.money}
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function showFinal(){
+
+  stopTimer();
+
+  const sorted =
+    [...state.teams].sort(
+      (a,b)=>b.money-a.money
+    );
+
+  if(!sorted.length){
+    return;
+  }
+
+  document.getElementById("finalWinner").textContent =
+    sorted[0].name;
+
+  document.getElementById("finalList").innerHTML =
+    sorted.map((team,index)=>`
+
+      <div class="standing-row">
+
+        <div class="rank">
+
+          <div class="rank-number">
+            ${index+1}
+          </div>
+
+          <span>${escapeHTML(team.name)}</span>
+
+        </div>
+
+        <div class="standing-money">
+          $${team.money}
+        </div>
+
+      </div>
+
+    `).join("");
+
+  document.getElementById("finalOverlay")
+    .classList.add("show");
+
+}
+
+
+function newBattle(){
+
+  if(!confirm(
+    "Start a new battle? Team money and mission awards will be reset, but your missions and team names will stay."
+  )){
+    return;
+  }
+
+  stopTimer();
+
+  state.teams.forEach(team=>{
+    team.money=0;
+  });
+
+  state.missions.forEach(mission=>{
+    mission.awarded=false;
+    mission.winner=null;
+  });
+
+  state.currentMission=0;
+
+  saveState();
+
+  closeOverlay("finalOverlay");
+  closeOverlay("standingsOverlay");
+  closeOverlay("awardOverlay");
+
+  render();
+
+}
+
+
+function closeOverlay(id){
+
+  document.getElementById(id)
+    .classList.remove("show");
+
+  if(id==="awardOverlay"){
+
+    removeTemporaryChoice();
+
+    document.querySelector(".confirm-buttons").style.display =
+      "flex";
+
+  }
+
+}
+
+
+function showMoneyAnimation(teamIndex,payout){
+
+  const cards =
+    document.querySelectorAll(".team");
+
+  if(!cards[teamIndex]){
+    return;
+  }
+
+  const rect =
+    cards[teamIndex].getBoundingClientRect();
+
+  const element =
+    document.createElement("div");
+
+  element.className="float-money";
+
+  element.textContent=`+$${payout}`;
+
+  element.style.left =
+    `${rect.left + rect.width/2}px`;
+
+  element.style.top =
+    `${rect.top}px`;
+
+  document.body.appendChild(element);
+
+  setTimeout(()=>{
+    element.remove();
+  },1400);
+
+}
+
+
+function beep(success=false){
+
+  try{
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if(!AudioContext){
+      return;
+    }
+
+    const ctx =
+      new AudioContext();
+
+    const oscillator =
+      ctx.createOscillator();
+
+    const gain =
+      ctx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.frequency.value =
+      success ? 650 : 350;
+
+    oscillator.type="sine";
+
+    gain.gain.setValueAtTime(
+      .0001,
+      ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .12,
+      ctx.currentTime+.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      ctx.currentTime+.35
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+      ctx.currentTime+.35
+    );
+
+  }catch(e){}
+
+}
+
+
+function escapeHTML(text){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+render();
+
+</script>
+
+</body>
+</html>
